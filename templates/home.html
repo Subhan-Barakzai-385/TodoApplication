@@ -55,7 +55,7 @@ Home
               <a href="#!" style="color: #23af89;" data-mdb-toggle="tooltip" title="Ascending"><i class="fas fa-sort-amount-down-alt ms-2"></i></a>
             </div>
 
-            <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
+            {% comment %} <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
               <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
                 <div class="form-check">
                   <input
@@ -81,8 +81,11 @@ Home
                     <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>28th Jun 2020</p></a>
                 </div>
               </li>
-            </ul>
-            <ul class="list-group list-group-horizontal rounded-0">
+            </ul> {% endcomment %}
+
+
+
+            {% comment %} <ul class="list-group list-group-horizontal rounded-0">
               <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
                 <div class="form-check">
                   <input
@@ -117,8 +120,8 @@ Home
                     <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>28th Jun 2020</p></a>
                 </div>
               </li>
-            </ul>
-            <ul class="list-group list-group-horizontal rounded-0 mb-2">
+            </ul> {% endcomment %}
+            {% comment %} <ul class="list-group list-group-horizontal rounded-0 mb-2">
               <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
                 <div class="form-check">
                   <input
@@ -142,7 +145,7 @@ Home
                     <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>28th Jun 2020</p></a>
                 </div>
               </li>
-            </ul>
+            </ul> {% endcomment %}
 
           </div>
         </div>
@@ -151,32 +154,50 @@ Home
   </div>
 </section>
 
+
 <div class="container" > 
-<section class="col-md-6 offset-md-3"> 
+<div class="row" > 
+<section class="col-md-6"> 
   <div class="card"> 
   <div class="card-header"> 
-  Tasks List
+   <h4 class="text-center"> Tasks List </h4>
   </div>
   {% for task in tasks %}
   <div class="card-body"> 
   {{ forloop.counter}} 
-
+  -
   {{task.task}}
-
    {% comment %} <button  class='btn btn-info float-center' type="submit"> {% if is_completed=True %} Completed {%  else %} Incomplete {% endif %}</button> {% endcomment %}
-
     <span class="float-end">
-    <button  class='btn btn-success' type="submit"> <i class="bi bi-check" >Mark as Done </i>  </button> 
-    <button  class='btn btn-danger' type="submit"> <i class="bi bi-trash" > </i>  </button> 
-    <button class='btn btn-info' > <i  class="bi bi-pencil"> </i>  </button> 
-
-    </span>
-    
+    <a href="{% url 'mark_as_done' task.id %}" > <button  class='btn btn-success' type="submit"> <i class="bi bi-check" ></i>Mark as Done   </button>  </a>
+   <a href="{% url 'delete_task' task.id %}" >  <button  class='btn btn-danger' type="submit"> <i class="bi bi-trash" > </i>  </button> </a>  
+   <a href="{% url 'update_task' task.id %}" > <button class='btn btn-info' > <i  class="bi bi-pencil"> </i>  </button> </a>
+    </span>  
   </div>
   {% endfor %}
   <div> 
 </section> 
 
-</div> 
+
+<section class="col-md-6"> 
+  <div class="card"> 
+  <div class="card-header"> 
+    <h4 class="text-center"> Completed Tasks </h4>
+  </div>
+   {% for com_task in completed_tasks %}
+  <div class='card card-body'>
+   
+     <div> 
+    {{ com_task.task }}
+    <span class="float-end">
+    <a href="{% url 'mark_as_undone' com_task.id %}" > <button  class='btn btn-danger ' type="submit"> <i class="bi bi-x-square" ></i>Undone  </button>  </a>
+    </span>  
+    </div>
+     </div>
+    {% endfor %}
+ 
+  </div>
+</section> 
+</div>
 
 {% endblock %}

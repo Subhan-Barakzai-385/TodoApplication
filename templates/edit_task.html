@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title  %}
+    Edit
+{% endblock %}
+
+{% block main_content %}
+
+  <div class=" container pt-4">
+              <div class="card col-md-6 offset-md-3 ">
+              <div class="card-header"> 
+                <h1 class="text-center"> Edit Task </h1> 
+              </div> 
+                <div class="card-body">
+                      <div>  
+                        <form action='{% url "update_task"  get_tast.id %}'  method='POST'> 
+                        {% csrf_token %}
+                    <div class="d-flex flex-row align-items-center">
+                    <input type="text" name='task' class="form-control form-control-lg" id="exampleFormControlInput1" value="{{ get_tast.task }}" placeholder="Add new...">
+                    <a href="#!" data-mdb-toggle="tooltip" title="Set due date"><i class="fas fa-calendar-alt fa-lg me-3"></i></a>
+                    <div>
+                      <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                        </form> 
+                      </div>
+                  </div>
+                </div>
+              </div>
+</div>    
+
+{% endblock %}
