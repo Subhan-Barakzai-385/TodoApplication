@@ -5,11 +5,9 @@ Home
 {% endblock %}
 
 {% block main_content %}
-<h1 class="text-center" > This is Home Page </h1> 
 
-
-<section class="vh-100">
-  <div class="container py-5 h-100">
+<section class="vh-70">
+  <div class="container py-5 h-50">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col">
         <div class="card" id="list1" style="border-radius: .75rem; background-color: #eff1f2;">
@@ -23,12 +21,17 @@ Home
             <div class="pb-2">
               <div class="card">
                 <div class="card-body">
-                  <div class="d-flex flex-row align-items-center">
-                    <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="Add new...">
+                      <div>  
+                        <form action='{% url "addtask"  %}'  method='POST'> 
+                        {% csrf_token %}
+                    <div class="d-flex flex-row align-items-center">
+                    <input type="text" name='task' class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="Add new...">
                     <a href="#!" data-mdb-toggle="tooltip" title="Set due date"><i class="fas fa-calendar-alt fa-lg me-3"></i></a>
                     <div>
-                      <button type="button" class="btn btn-primary">Add</button>
+                      <button type="submit" class="btn btn-primary">Add</button>
                     </div>
+                        </form> 
+                      </div>
                   </div>
                 </div>
               </div>
@@ -147,5 +150,33 @@ Home
     </div>
   </div>
 </section>
+
+<div class="container" > 
+<section class="col-md-6 offset-md-3"> 
+  <div class="card"> 
+  <div class="card-header"> 
+  Tasks List
+  </div>
+  {% for task in tasks %}
+  <div class="card-body"> 
+  {{ forloop.counter}} 
+
+  {{task.task}}
+
+   {% comment %} <button  class='btn btn-info float-center' type="submit"> {% if is_completed=True %} Completed {%  else %} Incomplete {% endif %}</button> {% endcomment %}
+
+    <span class="float-end">
+    <button  class='btn btn-success' type="submit"> <i class="bi bi-check" >Mark as Done </i>  </button> 
+    <button  class='btn btn-danger' type="submit"> <i class="bi bi-trash" > </i>  </button> 
+    <button class='btn btn-info' > <i  class="bi bi-pencil"> </i>  </button> 
+
+    </span>
+    
+  </div>
+  {% endfor %}
+  <div> 
+</section> 
+
+</div> 
 
 {% endblock %}
